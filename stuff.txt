@@ -1,0 +1,5 @@
+http://stackoverflow.com/questions/13190090/sql-to-pymongo-generation-using-pyparsing
+
+http://blog.pythonisito.com/2012/05/aggregation-in-mongodb-part-1.html
+
+http://www.sqlite.org/sqllogictest/doc/trunk/about.wiki
