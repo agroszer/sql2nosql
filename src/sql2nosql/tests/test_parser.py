@@ -1044,6 +1044,38 @@ def doctest_pypa_where_nonconst():
     """
 
 
+def doctest_exprToName():
+    r"""
+
+        >>> o =tomongo.Query()
+
+        >>> print o.exprToName("FirstName")
+        FirstName
+
+        >>> print o.exprToName("avg(Age)")
+        avgAge
+
+        >>> print o.exprToName("avg(Age)")
+        avgAge
+
+        >>> print o.exprToName("avg(age)")
+        avgage
+
+        >>> print o.exprToName("avg((Age))")
+        avgAge_1
+
+        >>> print o.exprToName("avg(Age)")
+        avgAge
+
+        >>> print o.exprToName("persons.FirstName+persons.LastName")
+        personsFirstNamepersonsLastName
+
+        >>> print o.exprToName("persons.FirstName+persons.LastName")
+        personsFirstNamepersonsLastName
+
+    """
+
+
 def setUp(test):
     make_test_db()
 

@@ -285,8 +285,13 @@ def translate(expr):
 
 class Query(object):
     counter = 0  # a counter for expr -> column names
+    expr2name = None
+    name2expr = None
 
     def __init__(self, sql=None):
+        self.expr2name = {}
+        self.name2expr = {}
+
         if sql:
             self.prepare(sql)
 
@@ -437,13 +442,23 @@ class Query(object):
         return cname
 
     def exprToName(self, expr):
+        sexpr = str(expr)
+        try:
+            return self.expr2name[sexpr]
+        except KeyError:
+            pass
+
         rv = ''
-        for i in str(expr):  # a very dirty way to make anything a string
+        for i in sexpr:  # a very dirty way to make anything a string
             if i in string.ascii_letters:
                 rv += i
         if len(rv) < len(str(expr)):
-            self.counter += 1
-            rv += '_' + str(self.counter)
+            cnt = self.name2expr.get(rv, 0)
+            if cnt > 0:
+                rv += '_' + str(cnt)
+            self.name2expr[rv] = cnt + 1
+
+        self.expr2name[sexpr] = rv
         return rv
 
     def dump(self):
